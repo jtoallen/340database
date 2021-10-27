@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Member Page</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="navbar">
-        <ul class="navbar">
-          <li class="navbutton"><a href="index.html">Home</a></li>
-            <li class="navbutton"><a href="tickets.html">Ticket purchases</a></li>
-            <li class="navbutton"><a href="filmsdirectory.html">Film management</a></li>
-            <li class="navbutton"><a href="concessions.html">Concession purchases</a></li>
-            <li class="navbutton"><a href="concessionstock.html">Concession management</a></li>
-            <li class="navbutton"><a href="membership.html">Memberships</a></li>
-            <li class="navbutton"><a href="receipts.html">Receipts</a></li>
-        </ul>  
-    </div>
-    <div>
-    </div>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Member Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="navbar">
+    <ul class="navbar">
+      <li class="navbutton"><a href="index.html">Home</a></li>
+      <li class="navbutton"><a href="tickets.html">Ticket purchases</a></li>
+      <li class="navbutton"><a href="filmsdirectory.html">Film management</a></li>
+      <li class="navbutton"><a href="concessions.html">Concession purchases</a></li>
+      <li class="navbutton"><a href="concessionstock.html">Concession management</a></li>
+      <li class="navbutton"><a href="membership.html">Memberships</a></li>
+      <li class="navbutton"><a href="receipts.html">Receipts</a></li>
+    </ul>
+  </div>
+  <h1>Manage Members</h1>
+
+  <form id="membersForm">
+    <p>
+    <div>Add Member</div>
+
+    <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+    <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+    <input id="email" type="email" name="email" placeholder="email" required>
+    <input id="submit" type="submit" value="submit">
+    </p>
+    <p>
+    <div>Delete Member</div>
+    <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+    <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+    <input id="email" type="email" name="email" placeholder="email" required>
+    <input id="submit" type="submit" value="submit">
+    </p>
+
+  </form>
+</body>
+
 </html>
 
 <!--- Member page - UI for members to view their account --->
