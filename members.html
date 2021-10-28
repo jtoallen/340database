@@ -21,7 +21,7 @@
   </div>
   <h1>Manage Members</h1>
 
-  <form id="membersForm">
+  <form id="addMember">
     <p>
     <div>Add Member</div>
 
@@ -30,6 +30,9 @@
     <input id="email" type="email" name="email" placeholder="email" required>
     <input id="submit" type="submit" value="submit">
     </p>
+  </form>
+
+  <form id="deleteMember">
     <p>
     <div>Delete Member</div>
     <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
@@ -37,7 +40,17 @@
     <input id="email" type="email" name="email" placeholder="email" required>
     <input id="submit" type="submit" value="submit">
     </p>
+  </form>
 
+  <form id="updateMember">
+    <p>
+    <div>Update Member</div>
+    <input id="memberID" type="text" name="memberID" placeholder="memberID" required>
+    <input id="firstName" type="text" name="firstName" placeholder="First Name">
+    <input id="lastName" type="text" name="lastName" placeholder="Last Name">
+    <input id="email" type="email" name="email" placeholder="email">
+    <input id="submit" type="submit" value="submit">
+    </p>
   </form>
 </body>
 
