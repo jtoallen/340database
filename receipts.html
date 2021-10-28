@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Receipts</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-      <div class="navbar">
-          <ul class="navbar">
-            <li class="navbutton"><a href="index.html">Home</a></li>
-            <li class="navbutton"><a href="ticket_transactions.html">Ticket Transactions</a></li>
-            <li class="navbutton"><a href="films.html">Films</a></li>
-            <li class="navbutton"><a href="concession_transactions.html">Concession Transactions</a></li>
-            <li class="navbutton"><a href="concessions.html">Concessions</a></li>
-            <li class="navbutton"><a href="members.html">Members</a></li>
-            <li class="navbutton"><a href="receipts.html">Receipts</a></li>
-          </ul>  
-      </div>
-      <h1>Receipt lookup</h1>
-      <form id="receiptLookup">
-        <p>
-        <div>Enter receipt ID:</div>
-        <input type="search">
-        <input id="submit" type="submit" value="submit">
-        </p>
-    
-      </form>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Receipts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="navbar">
+    <ul class="navbar">
+      <li class="navbutton"><a href="index.html">Home</a></li>
+      <li class="navbutton"><a href="ticket_transactions.html">Ticket Transactions</a></li>
+      <li class="navbutton"><a href="films.html">Films</a></li>
+      <li class="navbutton"><a href="concession_transactions.html">Concession Transactions</a></li>
+      <li class="navbutton"><a href="concessions.html">Concessions</a></li>
+      <li class="navbutton"><a href="members.html">Members</a></li>
+      <li class="navbutton"><a href="receipts.html">Receipts</a></li>
+    </ul>
+  </div>
+  <h1>Receipt lookup</h1>
+  <form id="receiptLookup">
+    <p>
+    <div>Enter receipt ID:</div>
+    <input type="search">
+    <input id="submit" type="submit" value="submit">
+    </p>
+  </form>
+  <form id="addReceipt">
+    <p>
+    <div>Add Receipt</div>
+    <input id="receiptID" type="number" name="receiptID" placeholder="Receipt ID" required>
+    <input id="date" type="date" name="date" placeholder="Date" required>
+    <input id="totalPaid" type="number" name="totalPaid" placeholder="Total" required>
+    </p>
+  </form>
+
+</body>
+
 </html>
 
 <!--- Member signup page - UI for signing up and entering a new member into the DB --->
