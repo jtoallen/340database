@@ -48,12 +48,21 @@
   <form id="updateMember">
     <p>
     <div>Update Member</div>
-    <input id="memberID" type="text" name="memberID" placeholder="memberID" required>
+    <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
     <input id="firstName" type="text" name="firstName" placeholder="First Name">
     <input id="lastName" type="text" name="lastName" placeholder="Last Name">
     <input id="email" type="email" name="email" placeholder="email">
     <input id="submit" type="submit" value="submit">
     </p>
+  </form>
+
+  <form id='searchMembers' action='' method=''>
+    <!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search for Member</label>
+    <input id="memberID" type="text" name="memberID" placeholder="Member ID">
+    <input id="firstName" type="text" name="firstName" placeholder="First Name">
+    <input id="lastName" type="text" name="lastName" placeholder="Last Name">
+    <input type="button" value="Search" onclick="searchMembers()">
   </form>
 </body>
 
