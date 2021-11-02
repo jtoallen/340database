@@ -14,15 +14,15 @@
       <li class="navbutton"><a href="ticket_transactions.html">Members Films</a></li>
       <li class="navbutton"><a href="films.html">Films</a></li>
       <li class="navbutton"><a href="concession_transactions.html">Members Concessions</a></li>
-      <li class="navbutton"><a href="concessions.html">Concession Items</a></li>
+      <li class="navbutton"><a href="concessions.html">Concessions</a></li>
       <li class="navbutton"><a href="members.html">Members</a></li>
-      <li class="navbutton"><a href="receipts.html"> Sales Receipts</a></li>
+      <li class="navbutton"><a href="receipts.html">Sales Receipts</a></li>
     </ul>
   </div>
   <p>
-    This page is for adding and deleting films in the Silver Screen Shows Database
+    This page is for adding, deleting, and searching films in the Silver Screen Shows Database
   </p>
-  <h1>Manage Films</h1>
+  <h1>Film manage/lookup</h1>
 
   <form id="filmsForm">
     <p>
@@ -33,6 +33,11 @@
     </p>
     <p>
     <div>Delete Film</div>
+    <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+    <input id="submit" type="submit" value="submit">
+    </p>
+    <p>
+    <div>Search Film</div>
     <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
     <input id="submit" type="submit" value="submit">
     </p>
