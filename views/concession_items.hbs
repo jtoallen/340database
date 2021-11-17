@@ -22,6 +22,37 @@
     <p>
         This page is for adding and deleting concession items in the Silver Screen Shows Database
     </p>
+
+    {{!-- Create a table --}}
+    <table id="concession_items">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.itemName}}</td>
+                <td>{{this.standardPrice}}</td>
+                <td>{{this.memberPrice}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
     <h1>Concession manage/lookup</h1>
 
     <form id="concessionStockForm">
@@ -54,6 +85,7 @@
     </form>
 
 </body>
+
 
 
 

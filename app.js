@@ -26,7 +26,8 @@ app.use(express.static('public'));
 // app.js
 
 app.get('/', function (req, res) {
-    // let query1 = "SELECT * FROM DDL_SSS;";               // Define our query
+    // let query1 = "SELECT * FROM DDL_SSS.sql;";               // Define our query
+    // console.log(query1);
 
     // db.pool.query(query1, function (error, rows, fields) {    // Execute the query
 
@@ -35,7 +36,11 @@ app.get('/', function (req, res) {
 });                                                         // received back from the query
 
 app.get('/concession_items', function (req, res) {
-    res.render('concession_items')
+    let query1 = "SELECT itemName, memberPrice FROM ConcessionItems";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('concession_items', { data: rows })
+    })
+
 });
 
 app.get('/films', function (req, res) {
