@@ -17,7 +17,8 @@ app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
 
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
-
+// Static Files
+app.use(express.static('public'));
 
 /*
     ROUTES
@@ -25,18 +26,41 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 // app.js
 
 app.get('/', function (req, res) {
-    let query1 = "SELECT * FROM DDL_SSS;";               // Define our query
+    // let query1 = "SELECT * FROM DDL_SSS;";               // Define our query
 
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    // db.pool.query(query1, function (error, rows, fields) {    // Execute the query
 
-        res.render('index', { data: rows });                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+    res.render('index');                  // Render the index.hbs file, and also send the renderer
+    // })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+app.get('/concession_items', function (req, res) {
+    res.render('concession_items')
+});
+
+app.get('/films', function (req, res) {
+    res.render('films');
+});
+
+app.get('/members_concessions', function (req, res) {
+    res.render('members_concessions');
+});
+
+app.get('/members_films', function (req, res) {
+    res.render('members_films');
+});
+
+app.get('/members', function (req, res) {
+    res.render('members');
+});
+
+app.get('/sales_receipts', function (req, res) {
+    res.render('sales_receipts');
+});
 
 /*
     LISTENER
 */
 app.listen(PORT, function () {            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate. Wactching for changes with Nodemon')
 });

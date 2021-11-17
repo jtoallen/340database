@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Members Concessions</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navbutton"><a href="/index/">Home</a></li>
+            <li class="navbutton"><a href="/members_films/">Members Films</a></li>
+            <li class="navbutton"><a href="/films/">Films</a></li>
+            <li class="navbutton"><a href="/members_concessions/">Members Concessions</a></li>
+            <li class="navbutton"><a href="/concession_items/">Concession Items</a></li>
+            <li class="navbutton"><a href="/members/">Members</a></li>
+            <li class="navbutton"><a href="/sales_receipts/">Sales Receipts</a></li>
+        </ul>
+    </div>
+    <p>
+        This page is for recording concession transactions in the Silver Screen Shows Database
+    </p>
+
+    <h1>Members Concessions</h1>
+    <form id="addConcessionTransactions">
+        <p>
+        <div>Add New Member Concession Transaction</div>
+        <input id="transcationID" type="text" name="transcationID" placeholder="Transcation ID">
+        <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
+        <input id="itemID" type="text" name="itemID" placeholder="Item ID" required>
+        <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
+        <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+    </form>
+    <form id="deleteConcessionTransactions"></form>
+    <p>
+    <div>Delete Members Concession Transaction</div>
+    <input id="transcationID" type="text" name="transcationID" placeholder="Transcation ID" required>
+    <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
+    <input id="itemID" type="text" name="itemID" placeholder="Item ID">
+    <input id="memberID" type="text" name="memberID" placeholder="Member ID">
+    <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased">
+    <input id="submit" type="submit" value="submit">
+    </p>
+    </form>
+</body>
+
+</html>
+
+<!--- Concession stand - UI for buying concessions (ConcessionTransactions) --->
