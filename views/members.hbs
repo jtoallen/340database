@@ -22,6 +22,41 @@
     <p>
         This page is for adding, deleting, and updating members in the Silver Screen Shows Database
     </p>
+
+    {{!-- Create a table --}}
+    <table id="members">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.memberID}}</td>
+                <td>{{this.firstName}}</td>
+                <td>{{this.lastName}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.latestFilmViewed}}</td>
+                <td>{{this.recentConcessionItem}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
     <h1>Members manage/lookup</h1>
 
     <form id="addMember">

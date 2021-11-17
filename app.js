@@ -36,31 +36,45 @@ app.get('/', function (req, res) {
 });                                                         // received back from the query
 
 app.get('/concession_items', function (req, res) {
-    let query1 = "SELECT itemName, memberPrice FROM ConcessionItems";
+    let query1 = "SELECT itemID, itemName, memberPrice FROM ConcessionItems";
     db.pool.query(query1, function (err, rows, fields) {
         res.render('concession_items', { data: rows })
     })
-
 });
 
 app.get('/films', function (req, res) {
-    res.render('films');
+    let query1 = "SELECT filmID, title FROM Films";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('films', { data: rows });
+    })
 });
 
 app.get('/members_concessions', function (req, res) {
-    res.render('members_concessions');
+    let query1 = "SELECT transactionID, receiptID, itemID, memberID, quantityPurchased from MembersConcessions";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('members_concessions', { data: rows });
+    })
 });
 
 app.get('/members_films', function (req, res) {
-    res.render('members_films');
+    let query1 = "SELECT orderID, receiptID, filmID, memberID, quantityPurchased FROM MembersFilms";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('members_films', { data: rows });
+    })
 });
 
 app.get('/members', function (req, res) {
-    res.render('members');
+    let query1 = "SELECT memberID, firstName, lastName, email, latestFilmViewed, recentConcessionItem FROM Members";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('members', { data: rows });
+    })
 });
 
 app.get('/sales_receipts', function (req, res) {
-    res.render('sales_receipts');
+    let query1 = "SELECT receiptID, date, totalPaid FROM SalesReceipts";
+    db.pool.query(query1, function (err, rows, fields) {
+        res.render('sales_receipts', { data: rows });
+    })
 });
 
 /*

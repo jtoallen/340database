@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Silver Screen Shows: Home</title>
+    <title>Silver Screen Shows Home</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -34,7 +34,7 @@
 
 
 {{!-- Create a table --}}
-<table>
+<table id>
 
     {{!-- Header section --}}
     <thead>
@@ -56,7 +56,7 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.id}}</td>
+            <td>{{this.}}</td>
             <td>{{this.fname}}</td>
             <td>{{this.lname}}</td>
             <td>{{this.homeworld}}</td>
