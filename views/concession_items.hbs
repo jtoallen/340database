@@ -42,7 +42,7 @@
 
             {{!-- For each row, print the itemName, standardPrice, and memberPrice in order --}}
             {{#each data}}
-            <tr id="row" {{this.itemID}}>
+            <tr id="row">
                 <td>{{this.itemID}}</td>
                 <td>{{this.itemName}}</td>
                 <td>{{this.standardPrice}}</td>
@@ -51,11 +51,11 @@
                         onclick="editconcession_items({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
                 </td>
                 <td>
-                    <form action="/delete_row">
+                    <form action="/delete_row_concession_items">
                         <button type="submit">Delete</button>
                         <input type="hidden" name="table" value="ConcessionItems">
                         <input type="hidden" name="page" value="/concession_items">
-                        <input type="hidden" name="id" value="{{this.itemID}}">
+                        <input type="hidden" name="itemID" value="{{this.itemID}}">
                     </form>
                 </td>
             </tr>

@@ -78,10 +78,11 @@ app.get('/sales_receipts', function (req, res) {
 });
 
 
-app.get('/delete_row', function (req, res, next) {
-    db.pool.query("DELETE FROM " + req.query.table + " WHERE id=1", [req.query_id], function (err, result) {
+app.get('/delete_row_concession_items', function (req, res, next) {
+    db.pool.query("DELETE FROM " + req.query.table + " WHERE itemID=?", [req.query.itemID], function (err, result) {
         console.log(req);
         if (err) {
+            console.log(req.query.table);
             console.log("you have reached this error in get route /delete_row"); //testing print
             next(err); //loops through errors 
             return;
