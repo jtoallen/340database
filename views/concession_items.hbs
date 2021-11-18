@@ -48,12 +48,12 @@
                 <td>{{this.standardPrice}}</td>
                 <td>{{this.memberPrice}}</td>
                 <td><button
-                        onclick="editConcessionItem({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
+                        onclick="editConcessionItems({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
                 </td>
                 <td>
-                    <form action="/delete_concession_item">
+                    <form action="/delete_row">
                         <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="ConcessionItem">
+                        <input type="hidden" name="table" value="concession_items">
                         <input type="hidden" name="page" value="/concession_items">
                         <input type="hidden" name="id" value="{{this.itemID}}">
                     </form>

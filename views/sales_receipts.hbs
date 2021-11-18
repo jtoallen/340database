@@ -44,10 +44,21 @@
 
             {{!-- For each row, print the --}}
             {{#each data}}
-            <tr>
+            <tr id="row">
                 <td>{{this.receiptID}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.totalPaid}}</td>
+                <td><button
+                        onclick="editSalesReceipts({{this.receiptID}},{{this.date}}, {{this.totalPaid}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="sales_receipts">
+                        <input type="hidden" name="page" value="/sales_receipts">
+                        <input type="hidden" name="id" value="{{this.receiptID}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>

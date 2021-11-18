@@ -77,6 +77,16 @@ app.get('/sales_receipts', function (req, res) {
     })
 });
 
+
+app.get('/delete_row', function (req, res, next) {
+    db.pool.query("DELETE FROM " + req.query.table + " WHERE id=?", [req.query_id], function (err, result) {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.redirect(req.query.page);
+    })
+})
 /*
     LISTENER
 */

@@ -45,13 +45,24 @@
 
             {{!-- For each row, print the --}}
             {{#each data}}
-            <tr>
+            <tr id="row">
                 <td>{{this.memberID}}</td>
                 <td>{{this.firstName}}</td>
                 <td>{{this.lastName}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.latestFilmViewed}}</td>
                 <td>{{this.recentConcessionItem}}</td>
+                <td><button
+                        onclick="editMembers({{this.memberID}},{{this.firstName}},{{this.lastName}}, {{this.email}}, {{this.latestFilmViewed}}, {{this.recentConcessionItem}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="members">
+                        <input type="hidden" name="page" value="/members">
+                        <input type="hidden" name="id" value="{{this.memberID}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>

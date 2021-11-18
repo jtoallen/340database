@@ -45,9 +45,19 @@
 
             {{!-- For each row, print the --}}
             {{#each data}}
-            <tr>
+            <tr id="row">
                 <td>{{this.filmID}}</td>
                 <td>{{this.title}}</td>
+                <td><button onclick="editFilms({{this.filmID}},{{this.title}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="films">
+                        <input type="hidden" name="page" value="/films">
+                        <input type="hidden" name="id" value="{{this.filmID}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>

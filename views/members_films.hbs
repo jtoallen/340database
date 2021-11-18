@@ -46,16 +46,28 @@
 
             {{!-- For each row, print the --}}
             {{#each data}}
-            <tr>
+            <tr id="row">
                 <td>{{this.orderID}}</td>
                 <td>{{this.receiptID}}</td>
                 <td>{{this.filmID}}</td>
                 <td>{{this.memberID}}</td>
                 <td>{{this.quantityPurchased}}</td>
+                <td><button
+                        onclick="editMembersFilms({{this.orderID}},{{this.receiptID}},{{this.filmID}}, {{this.memberID}}, {{this.quantityPurchased}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="members_films">
+                        <input type="hidden" name="page" value="/members_films">
+                        <input type="hidden" name="id" value="{{this.orderID}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
+
     <h1>Members Films</h1>
 
     <form id="addTicketTransactions">

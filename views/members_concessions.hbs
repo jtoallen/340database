@@ -44,12 +44,23 @@
 
             {{!-- For each row, print the --}}
             {{#each data}}
-            <tr>
+            <tr id="row">
                 <td>{{this.transcationID}}</td>
                 <td>{{this.receiptID}}</td>
                 <td>{{this.itemID}}</td>
                 <td>{{this.memberID}}</td>
                 <td>{{this.quantityPurchased}}</td>
+                <td><button
+                        onclick="editMembersConcessions({{this.transactionID}},{{this.receiptID}},{{this.itemID}}, {{this.memberID}}, {{this.quantityPurchased}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="members_concessions">
+                        <input type="hidden" name="page" value="/members_concessions">
+                        <input type="hidden" name="id" value="{{this.transactionID}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>
