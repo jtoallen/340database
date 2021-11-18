@@ -4,7 +4,7 @@
 //Express
 var express = require('express');   // We are using the express library for the web server
 var app = express();            // We need to instantiate an express object to interact with the server in our code
-PORT = 7634;                 // Set a port number at the top so it's easy to change in the future
+PORT = 7633;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
 var db = require('./database/db-connector')
@@ -79,11 +79,11 @@ app.get('/sales_receipts', function (req, res) {
 
 
 app.get('/delete_row', function (req, res, next) {
-    db.pool.query("DELETE FROM " + req.query.table + " WHERE id=?", [req.query_id], function (err, result) {
+    db.pool.query("DELETE FROM " + req.query.table + " WHERE id=1", [req.query_id], function (err, result) {
         console.log(req);
         if (err) {
             console.log("you have reached this error in get route /delete_row"); //testing print
-            // next(err); //loops through errors 
+            next(err); //loops through errors 
             return;
         }
         res.redirect(req.query.page);

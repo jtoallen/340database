@@ -22,7 +22,7 @@
     </p>
 
     {{!-- Create a table --}}
-    <table id="concession_items">
+    <table id="ConcessionItems">
 
         {{!-- Header section --}}
         <thead>
@@ -42,18 +42,18 @@
 
             {{!-- For each row, print the itemName, standardPrice, and memberPrice in order --}}
             {{#each data}}
-            <tr id="row">
+            <tr id="row" {{this.itemID}}>
                 <td>{{this.itemID}}</td>
                 <td>{{this.itemName}}</td>
                 <td>{{this.standardPrice}}</td>
                 <td>{{this.memberPrice}}</td>
                 <td><button
-                        onclick="editConcessionItems({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
+                        onclick="editconcession_items({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
                 </td>
                 <td>
                     <form action="/delete_row">
                         <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="concession_items">
+                        <input type="hidden" name="table" value="ConcessionItems">
                         <input type="hidden" name="page" value="/concession_items">
                         <input type="hidden" name="id" value="{{this.itemID}}">
                     </form>
@@ -65,7 +65,7 @@
 
     <h1>Concession manage/lookup</h1>
 
-    <form id="concessionStockForm">
+    {{!-- <form id="concessionStockForm">
         <p>
         <div>Add Concession Item</div>
 
@@ -92,7 +92,7 @@
         <input id="submit" type="submit" value="submit">
         </p>
 
-    </form>
+    </form> --}}
 
 </body>
 
