@@ -57,7 +57,7 @@ CREATE TABLE `MembersConcessions` (
   KEY `itemID` (`itemID`),
   KEY `memberID` (`memberID`),
   CONSTRAINT `MembersConcessions_ibfk_1` FOREIGN KEY (`receiptID`) REFERENCES `SalesReceipts` (`receiptID`),
-  CONSTRAINT `MembersConcessions_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `ConcessionItems` (`itemID`),
+  CONSTRAINT `MembersConcessions_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `ConcessionItems` (`itemID`) ON DELETE CASCADE,
   CONSTRAINT `MembersConcessions_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
