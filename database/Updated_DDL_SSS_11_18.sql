@@ -31,8 +31,8 @@ CREATE TABLE `Members` (
   `recentConcessionItem` int(11) DEFAULT NULL,
   PRIMARY KEY (`memberID`), KEY `latestFilmViewed` (`latestFilmViewed`),
   KEY `recentConcessionItem` (`recentConcessionItem`),
-  CONSTRAINT `Members_ibfk_1` FOREIGN KEY (`latestFilmViewed`) REFERENCES `Films` (`filmID`),
-  CONSTRAINT `Members_ibfk_2` FOREIGN KEY (`recentConcessionItem`) REFERENCES `ConcessionItems` (`itemID`)
+  CONSTRAINT `Members_ibfk_1` FOREIGN KEY (`latestFilmViewed`) REFERENCES `Films` (`filmID`) ON DELETE CASCADE,
+  CONSTRAINT `Members_ibfk_2` FOREIGN KEY (`recentConcessionItem`) REFERENCES `ConcessionItems` (`itemID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -50,15 +50,15 @@ CREATE TABLE `MembersConcessions` (
   `transactionID` int(11) NOT NULL AUTO_INCREMENT,
   `receiptID` int(11) DEFAULT NULL,
   `itemID` int(11) NOT NULL,
-  `memberID` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL, 
   `quantityPurchased` int(11) NOT NULL,
   PRIMARY KEY (`transactionID`),
   KEY `receiptID` (`receiptID`),
   KEY `itemID` (`itemID`),
   KEY `memberID` (`memberID`),
-  CONSTRAINT `MembersConcessions_ibfk_1` FOREIGN KEY (`receiptID`) REFERENCES `SalesReceipts` (`receiptID`),
+  CONSTRAINT `MembersConcessions_ibfk_1` FOREIGN KEY (`receiptID`) REFERENCES `SalesReceipts` (`receiptID`) ON DELETE CASCADE,
   CONSTRAINT `MembersConcessions_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `ConcessionItems` (`itemID`) ON DELETE CASCADE,
-  CONSTRAINT `MembersConcessions_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`)
+  CONSTRAINT `MembersConcessions_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -73,9 +73,9 @@ CREATE TABLE `MembersFilms` (
   KEY `receiptID` (`receiptID`),
   KEY `filmID` (`filmID`),
   KEY `memberID` (`memberID`),
-  CONSTRAINT `MembersFilms_ibfk_1` FOREIGN KEY (`receiptID`) REFERENCES `SalesReceipts` (`receiptID`),
-  CONSTRAINT `MembersFilms_ibfk_2` FOREIGN KEY (`filmID`) REFERENCES `Films` (`filmID`),
-  CONSTRAINT `MembersFilms_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`)
+  CONSTRAINT `MembersFilms_ibfk_1` FOREIGN KEY (`receiptID`) REFERENCES `SalesReceipts` (`receiptID`) ON DELETE CASCADE,
+  CONSTRAINT `MembersFilms_ibfk_2` FOREIGN KEY (`filmID`) REFERENCES `Films` (`filmID`) ON DELETE CASCADE,
+  CONSTRAINT `MembersFilms_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- add concessions

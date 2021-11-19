@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 });                                                         // received back from the query
 
 app.get('/concession_items', function (req, res) {
-    let query1 = "SELECT itemID, itemName, memberPrice FROM ConcessionItems";
+    let query1 = "SELECT itemID, itemName, standardPrice, memberPrice FROM ConcessionItems";
     db.pool.query(query1, function (err, rows, fields) {
         res.render('concession_items', { data: rows })
     })
