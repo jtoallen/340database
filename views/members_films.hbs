@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Members Films</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navbutton"><a href="/">Home</a></li>
+            <li class="navbutton"><a href="/members_films/">Members Films</a></li>
+            <li class="navbutton"><a href="/films/">Films</a></li>
+            <li class="navbutton"><a href="/members_concessions/">Members Concessions</a></li>
+            <li class="navbutton"><a href="/concession_items/">Concession Items</a></li>
+            <li class="navbutton"><a href="/members/">Members</a></li>
+            <li class="navbutton"><a href="/sales_receipts/">Sales Receipts</a></li>
+        </ul>
+    </div>
+
+    <p>
+        This page is for adding and deleting ticket transactions in the Silver Screen Shows Database
+    </p>
+
+    {{!-- Create a table --}}
+    <table id="members_films">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the --}}
+            {{#each data}}
+            <tr id="row">
+                <td>{{this.orderID}}</td>
+                <td>{{this.receiptID}}</td>
+                <td>{{this.filmID}}</td>
+                <td>{{this.memberID}}</td>
+                <td>{{this.quantityPurchased}}</td>
+                <td><button
+                        onclick="editMembersFilms({{this.orderID}},{{this.receiptID}},{{this.filmID}}, {{this.memberID}}, {{this.quantityPurchased}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="members_films">
+                        <input type="hidden" name="page" value="/members_films">
+                        <input type="hidden" name="id" value="{{this.orderID}}">
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h1>Members Films</h1>
+
+    <form id="addTicketTransactions">
+        <p>
+        <div>Add New Member Ticket Transaction</div>
+        <input id="orderID" type="text" name="orderID" placeholder="Order ID" required>
+        <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
+        <input id="filmID" type="text" name="filmID" placeholder="Film ID" required>
+        <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
+        <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+    </form>
+    <form id="deleteTicketTransactions"></form>
+    <p>
+    <div>Delete Member Ticket Transaction</div>
+    <input id="orderID" type="text" name="orderID" placeholder="Order ID" required>
+    <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
+    <input id="filmID" type="text" name="filmID" placeholder="Film ID" required>
+    <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
+    <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased">
+    <input id="submit" type="submit" value="submit">
+    </p>
+    </form>
+</body>
+
+</html>
+
+<!--- Box Office - UI for buying tickets (TicketTransactions) --->

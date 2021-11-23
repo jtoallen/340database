@@ -1,0 +1,102 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Concession Items</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navbutton"><a href="/">Home</a></li>
+            <li class="navbutton"><a href="/members_films/">Members Films</a></li>
+            <li class="navbutton"><a href="/films/">Films</a></li>
+            <li class="navbutton"><a href="/members_concessions/">Members Concessions</a></li>
+            <li class="navbutton"><a href="/concession_items/">Concession Items</a></li>
+            <li class="navbutton"><a href="/members/">Members</a></li>
+            <li class="navbutton"><a href="/sales_receipts/">Sales Receipts</a></li>
+        </ul>
+    </div>
+    <p>
+        This page is for adding and deleting concession items in the Silver Screen Shows Database
+    </p>
+
+    {{!-- Create a table --}}
+    <table id="ConcessionItems">
+
+        {{!-- Header section --}}
+        <thead>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the itemName, standardPrice, and memberPrice in order --}}
+            {{#each data}}
+            <tr id="row">
+                <td>{{this.itemID}}</td>
+                <td>{{this.itemName}}</td>
+                <td>{{this.standardPrice}}</td>
+                <td>{{this.memberPrice}}</td>
+                <td><button
+                        onclick="editconcession_items({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row_concession_items">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="ConcessionItems">
+                        <input type="hidden" name="page" value="/concession_items">
+                        <input type="hidden" name="itemID" value="{{this.itemID}}">
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h1>Concession manage/lookup</h1>
+
+    {{!-- <form id="concessionStockForm">
+        <p>
+        <div>Add Concession Item</div>
+
+        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
+        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+        <p>
+        <div>Delete Concession Item</div>
+        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
+        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+        <div>Update Concession Item</div>
+        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
+        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+        <div>Search Concession Item</div>
+        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+
+    </form> --}}
+
+</body>
+
+
+
+
+<!--- Landing page --->

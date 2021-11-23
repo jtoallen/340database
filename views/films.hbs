@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navbutton"><a href="/">Home</a></li>
+            <li class="navbutton"><a href="/members_films/">Members Films</a></li>
+            <li class="navbutton"><a href="/films/">Films</a></li>
+            <li class="navbutton"><a href="/members_concessions/">Members Concessions</a></li>
+            <li class="navbutton"><a href="/concession_items/">Concession Items</a></li>
+            <li class="navbutton"><a href="/members/">Members</a></li>
+            <li class="navbutton"><a href="/sales_receipts/">Sales Receipts</a></li>
+        </ul>
+    </div>
+    <p>
+        This page is for adding, deleting, and searching films in the Silver Screen Shows Database
+    </p>
+
+    {{!-- Create a table --}}
+    <table id="films">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the --}}
+            {{#each data}}
+            <tr id="row">
+                <td>{{this.filmID}}</td>
+                <td>{{this.title}}</td>
+                <td><button onclick="editFilms({{this.filmID}},{{this.title}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="films">
+                        <input type="hidden" name="page" value="/films">
+                        <input type="hidden" name="id" value="{{this.filmID}}">
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h1>Film manage/lookup</h1>
+
+    <form id="filmsForm">
+        <p>
+        <div>Add Film</div>
+
+        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+        <p>
+        <div>Delete Film</div>
+        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+        <p>
+        <div>Search Film</div>
+        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+
+    </form>
+</body>
+
+</html>
+
+
+<!--- Landing page --->

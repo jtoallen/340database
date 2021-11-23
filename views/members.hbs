@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar">
+            <li class="navbutton"><a href="/">Home</a></li>
+            <li class="navbutton"><a href="/members_films/">Members Films</a></li>
+            <li class="navbutton"><a href="/films/">Films</a></li>
+            <li class="navbutton"><a href="/members_concessions/">Members Concessions</a></li>
+            <li class="navbutton"><a href="/concession_items/">Concession Items</a></li>
+            <li class="navbutton"><a href="/members/">Members</a></li>
+            <li class="navbutton"><a href="/sales_receipts/">Sales Receipts</a></li>
+        </ul>
+    </div>
+    <p>
+        This page is for adding, deleting, and updating members in the Silver Screen Shows Database
+    </p>
+
+    {{!-- Create a table --}}
+    <table id="members">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the --}}
+            {{#each data}}
+            <tr id="row">
+                <td>{{this.memberID}}</td>
+                <td>{{this.firstName}}</td>
+                <td>{{this.lastName}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.latestFilmViewed}}</td>
+                <td>{{this.recentConcessionItem}}</td>
+                <td><button
+                        onclick="editMembers({{this.memberID}},{{this.firstName}},{{this.lastName}}, {{this.email}}, {{this.latestFilmViewed}}, {{this.recentConcessionItem}})">Edit</button>
+                </td>
+                <td>
+                    <form action="/delete_row">
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="table" value="members">
+                        <input type="hidden" name="page" value="/members">
+                        <input type="hidden" name="id" value="{{this.memberID}}">
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h1>Members manage/lookup</h1>
+
+    <form id="addMember">
+        <p>
+        <div>Add Member</div>
+
+        <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+        <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+        <input id="email" type="email" name="email" placeholder="email" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+    </form>
+
+    <form id="deleteMember">
+        <p>
+        <div>Delete Member</div>
+        <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+        <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+        <input id="email" type="email" name="email" placeholder="email" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+    </form>
+
+    <form id="updateMember">
+        <p>
+        <div>Update Member</div>
+        <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
+        <input id="firstName" type="text" name="firstName" placeholder="First Name">
+        <input id="lastName" type="text" name="lastName" placeholder="Last Name">
+        <input id="email" type="email" name="email" placeholder="email">
+        <input id="submit" type="submit" value="submit">
+        </p>
+    </form>
+
+    <form id='searchMembers' action='' method=''>
+        <!--- this form does not submit directly, the button handles all the interaction with backend -->
+        <div>
+            <label> Search for Member</label>
+        </div>
+        <input id="memberID" type="text" name="memberID" placeholder="Member ID">
+        <input id="firstName" type="text" name="firstName" placeholder="First Name">
+        <input id="lastName" type="text" name="lastName" placeholder="Last Name">
+        <input type="button" value="Search" onclick="searchMembers()">
+    </form>
+</body>
+
+</html>
+
+<!--- Member page - UI for members to view their account --->
