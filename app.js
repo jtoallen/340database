@@ -37,11 +37,11 @@ app.get('/', function (req, res) {
 
 app.get('/concession_items', function (req, res) {
     let query1 = "SELECT itemID, itemName, standardPrice, memberPrice FROM ConcessionItems";
-    db.pool.query(query1, function (err, rows, fields) {
-        console.log(err)
-        console.log({ rows })
+    db.pool.query(query1, function (err, results, fields) {
+        // console.log(err) //null 
+        console.log(results) //RowData 
         console.log(fields)
-        res.render('concession_items', { data: rows }) //render is for handlebars file
+        res.render('concession_items', { data: results }) //render is for handlebars file
     })
 });
 
