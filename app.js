@@ -20,6 +20,19 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 // Static Files
 app.use(express.static('public'));
 
+const films = require('./films.js');
+const concession_items = require('./concession_items.js');
+const members = require('./members.js');
+const members_concessions = require('./members_concessions.js');
+const members_films = require('./members_concessions.js');
+const sales_receipts = require('./sales_receipts.js');
+app.use(films);
+app.use(concession_items);
+app.use(members);
+app.use(members_concessions);
+app.use(members_films);
+app.use(sales_receipts);
+
 /*
     ROUTES
 */
