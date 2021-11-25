@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+selectQuery = "SELECT * FROM Members";
+insertQuery = "INSERT INTO `Members`(`firstName`, `lastName`, `email`, `latestFilmViewed`, `recentConcessionItem`) VALUES (?, ?, ?, NULL, NULL)";
+updateQuery = "UPDATE `Members` SET `firstName`= (?),`lastName`= (?),`email`=(?) WHERE memberID = (?)";
+
 router.get('/members', function(req, res){
 	var context = {};
 	var mysql = req.app.get('mysql');
-	mysql.pool.query("SELECT memberID, firstName, lastName, email, latestFilmViewed, recentConcessionItem FROM Members", function(error, results, fields) {
+	mysql.pool.query(selectQuery, function(error, results, fields) {
 		if(error){
 			res.write(JSON.stringify(error));
 			res.end();
@@ -16,10 +20,21 @@ router.get('/members', function(req, res){
 
 router.post('/members', function(req, res){
 	var mysql = req.app.get('mysql');
-    var sql = "INSERT INTO `Members`(`firstName`, `lastName`, `email`, `latestFilmViewed`, `recentConcessionItem`) VALUES (?, ?, ?, NULL, NULL)";
-	
     var inserts = [req.body.firstName, req.body.lastName, req.body.email];
-	mysql.pool.query(sql,inserts,function(error, results, fields){
+	mysql.pool.query(insertQuery, inserts, function(error, results, fields){
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		} else {
+			res.redirect('/members');
+		}
+	});
+});
+
+router.put('/members', function(req, res){
+	var mysql = req.app.get('mysql');
+	var update = [req.body.firstName, req.body.lastName, req.body.email, req.body.memberID];
+	mysql.pool.query(updateQuery, update, function(error, results, fields){
 		if(error){
 			res.write(JSON.stringify(error));
 			res.end();
