@@ -50,3 +50,5 @@ router.post('/members_films', function(req, res){
         new_receipt_id.receiptID = results
     });	 */
 });
+
+module.exports = router;

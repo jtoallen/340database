@@ -28,3 +28,5 @@ router.post('/sales_receipts', function(req, res){
 		}
 	});
 });
+
+module.exports = router;

@@ -43,3 +43,5 @@ router.put('/films', function(req, res){
 		}
 	});
 });
+
+module.exports = router;

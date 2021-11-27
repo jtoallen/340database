@@ -43,3 +43,5 @@ router.put('/concession_items', function(req, res){
 		}
 	});
 });
+
+module.exports = router;

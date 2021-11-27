@@ -52,3 +52,5 @@ router.post('/members_concessions', function(req, res){
         new_receipt_id.receiptID = results
     });	 */
 });
+
+module.exports = router;

@@ -4,7 +4,16 @@
 //Express
 var express = require('express');   // We are using the express library for the web server
 var app = express();            // We need to instantiate an express object to interact with the server in our code
-PORT = 7633;                 // Set a port number at the top so it's easy to change in the future
+PORT = 10145;                 // Set a port number at the top so it's easy to change in the future
+
+const util = require('util');
+require('util.promisify').shim();
+const fs = require('fs');
+const readFileAsync = util.promisify(fs.readFile);
+// implementation found on StackOverflow which allows promisify to be available with older versions of node
+// Was receiving this error when trying to test on osu servers
+// https://stackoverflow.com/questions/46476741/nodejs-util-promisify-is-not-a-function
+
 
 // Database
 var db = require('./database/db-connector')
@@ -14,6 +23,7 @@ const { engine } = require('express-handlebars');
 const { query } = require('express');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
+
 
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
@@ -39,6 +49,7 @@ app.use(sales_receipts);
 // app.js
 
 app.get('/', function (req, res) {
+    console.log('Rendering index page index page.');
     res.render('index');                                                      
 });                                                         
 

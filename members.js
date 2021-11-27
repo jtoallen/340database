@@ -43,3 +43,5 @@ router.put('/members', function(req, res){
 		}
 	});
 });
+
+module.exports = router;
