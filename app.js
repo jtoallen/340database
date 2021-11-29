@@ -20,6 +20,11 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 // Static Files
 app.use(express.static('public'));
 
+// var router = express.Router();
+// const concession_items = require('./concession_items.js');
+
+// app.use(concession_items);
+
 /*
     ROUTES
 */
@@ -82,7 +87,7 @@ app.get('/sales_receipts', function (req, res) {
 
 
 app.get('/delete_row_concession_items', function (req, res, next) {
-    db.pool.query("DELETE FROM " + req.query.table + " WHERE itemID=?", [req.query.itemID], function (err, result) {
+    db.pool.query("DELETE FROM " + req.query.table + " WHERE itemID=?", [req.query.id], function (err, result) {
         console.log(req);
         if (err) {
             // console.log(req.query.table);
