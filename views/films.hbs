@@ -23,63 +23,48 @@
         This page is for adding, deleting, and searching films in the Silver Screen Shows Database
     </p>
 
+    <h1>Read current Films:</h1>
+
     {{!-- Create a table --}}
     <table id="films">
-
-        {{!-- Header section --}}
         <thead>
-
-            {{!-- For just the first row, we print each key of the row object as a header cell so we
-            know what each column means when the page renders --}}
             <tr>
-                {{#each data.[0]}}
-                <th>
-                    {{@key}}
-                </th>
-                {{/each}}
+                <th> filmID </th>
+                <th> title </th>    
             </tr>
         </thead>
-
-        {{!-- Body section --}}
         <tbody>
-
-            {{!-- For each row, print the --}}
-            {{#each data}}
+            {{#each this.films}}
             <tr id="row">
-                <td>{{this.filmID}}</td>
-                <td>{{this.title}}</td>
-                <td><button onclick="editFilms({{this.filmID}},{{this.title}})">Edit</button>
-                </td>
-                <td>
-                    <form action="/delete_row">
-                        <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="films">
-                        <input type="hidden" name="page" value="/films">
-                        <input type="hidden" name="id" value="{{this.filmID}}">
-                    </form>
-                </td>
-            </tr>
+                <td>{{filmID}}</td>
+                <td>{{title}}</td>
             {{/each}}
         </tbody>
     </table>
 
-    <h1>Film manage/lookup</h1>
+    <h1>Film manage</h1>
 
-    <form id="filmsForm">
+    <form id="filmAdd" action="/films" method="post">
         <p>
         <div>Add Film</div>
-
         <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
         <input id="submit" type="submit" value="submit">
         </p>
+    </form>
+
+    <form id="filmDelete" action="/films_delete" method="post">
         <p>
         <div>Delete Film</div>
-        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <input id="filmID" type="number" name="filmID" placeholder="Film ID" required>
         <input id="submit" type="submit" value="submit">
         </p>
+    </form>
+
+    <form id="filmUpdate" action="/films_update" method="post">
         <p>
-        <div>Search Film</div>
-        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <div>Update Film</div>
+        <input id="filmID" type="number" name="filmID" placeholder="Film ID" required>
+        <input id="newTitle" type="text" name="newTitle" placeholder="New Title" required>
         <input id="submit" type="submit" value="submit">
         </p>
 

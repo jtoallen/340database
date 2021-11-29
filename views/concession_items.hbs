@@ -29,11 +29,10 @@
             {{!-- For just the first row, we print each key of the row object as a header cell so we
             know what each column means when the page renders --}}
             <tr>
-                {{#each data.[0]}}
-                <th>
-                    {{@key}}
-                </th>
-                {{/each}}
+                <th>itemID</th>
+                <th>itemName</th>
+                <th>standardPrice</th>
+                <th>memberPrice</th>
             </tr>
         </thead>
 
@@ -41,23 +40,12 @@
         <tbody>
 
             {{!-- For each row, print the itemName, standardPrice, and memberPrice in order --}}
-            {{#each data}}
+            {{#each this.concession_items}}
             <tr id="row">
                 <td>{{this.itemID}}</td>
                 <td>{{this.itemName}}</td>
                 <td>{{this.standardPrice}}</td>
                 <td>{{this.memberPrice}}</td>
-                <td><button
-                        onclick="editconcession_items({{this.itemID}},{{this.itemName}},{{this.standardPrice}}, {{this.memberPrice}})">Edit</button>
-                </td>
-                <td>
-                    <form action="/delete_row_concession_items">
-                        <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="ConcessionItems">
-                        <input type="hidden" name="page" value="/concession_items">
-                        <input type="hidden" name="itemID" value="{{this.itemID}}">
-                    </form>
-                </td>
             </tr>
             {{/each}}
         </tbody>
@@ -65,34 +53,35 @@
 
     <h1>Concession manage/lookup</h1>
 
-    {{!-- <form id="concessionStockForm">
+    <form id="concessionAdd" action="/concession_items" method="post">
         <p>
         <div>Add Concession Item</div>
-
         <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
-        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
-        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
+        <input id="standardPrice" type="number" step="0.01" name="standardPrice" placeholder="Standard Price" required>
+        <input id="memberPrice" type="number" step="0.01" name="memberPrice" placeholder="Member Price" required>
         <input id="submit" type="submit" value="submit">
         </p>
+    </form>
+
+    <form id="concessionDelete" action="/concession_items_delete" method="post">
         <p>
         <div>Delete Concession Item</div>
-        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
-        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
-        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
+        <input id="itemID" type="number" name="itemID" placeholder="Item ID" required>
         <input id="submit" type="submit" value="submit">
         </p>
+    </form>
+
+    <form id="concessionUpdate" action="/concession_items_update" method="post">
+        <p>
         <div>Update Concession Item</div>
+        <input id="itemID" type="number" name="itemID" placeholder="Item ID" required>
         <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
-        <input id="standardPrice" type="number" min=".009" step="any" placeholder="standard price" required>
-        <input id="memberPrice" type="number" min=".009" step="any" placeholder="member price" required>
-        <input id="submit" type="submit" value="submit">
-        </p>
-        <div>Search Concession Item</div>
-        <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+        <input id="standardPrice" type="number" step="0.01" name="standardPrice" placeholder="Standard Price" required>
+        <input id="memberPrice" type="number" step="0.01" name="memberPrice" placeholder="Member Price" required>
         <input id="submit" type="submit" value="submit">
         </p>
 
-    </form> --}}
+    </form>
 
 </body>
 

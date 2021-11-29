@@ -31,11 +31,9 @@
             {{!-- For just the first row, we print each key of the row object as a header cell so we
             know what each column means when the page renders --}}
             <tr>
-                {{#each data.[0]}}
-                <th>
-                    {{@key}}
-                </th>
-                {{/each}}
+                <th>receiptID</th>
+                <th>date</th>
+                <th>totalPaid</th>
             </tr>
         </thead>
 
@@ -43,62 +41,40 @@
         <tbody>
 
             {{!-- For each row, print the data --}}
-            {{#each data}}
+            {{#each this.sales_receipts}}
             <tr id="row">
                 <td>{{this.receiptID}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.totalPaid}}</td>
-                <td><button
-                        onclick="editSalesReceipts({{this.receiptID}},{{this.date}}, {{this.totalPaid}})">Edit</button>
-                </td>
-                <td>
-                    <form action="/delete_row">
-                        <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="sales_receipts">
-                        <input type="hidden" name="page" value="/sales_receipts">
-                        <input type="hidden" name="id" value="{{this.receiptID}}">
-                    </form>
-                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
-    <h1>Receipt manage/lookup</h1>
-    <form id="addReceipt">
+    <h1>Receipt manage</h1>
+    <form id="addReceipt" action="/sales_receipts" method="post">
         <p>
         <div>Add Receipt</div>
-        <input id="receiptID" type="number" name="receiptID" placeholder="Receipt ID">
         <input id="date" type="date" name="date" placeholder="Date" required>
         <input id="totalPaid" type="number" name="totalPaid" placeholder="Total" required>
         <input id="submit" type="submit" value="submit">
         </p>
     </form>
 
-    <form id="addReceipt">
+    <form id="deleteReceipt" action="/sales_receipts_delete" method="post">
         <p>
         <div>Delete Receipt</div>
         <input id="receiptID" type="number" name="receiptID" placeholder="Receipt ID" required>
-        <input id="date" type="date" name="date" placeholder="Date">
-        <input id="totalPaid" type="number" name="totalPaid" placeholder="Total">
         <input id="submit" type="submit" value="submit">
         </p>
     </form>
 
-    <form id="addReceipt">
+    <form id="updateReceipt" action="/sales_receipts_update" method="post">
         <p>
         <div>Update Receipt</div>
         <input id="receiptID" type="number" name="receiptID" placeholder="Receipt ID" required>
         <input id="date" type="date" name="date" placeholder="Date" required>
         <input id="totalPaid" type="number" name="totalPaid" placeholder="Total" required>
-        <input id="submit" type="submit" value="submit">
-        </p>
-    </form>
-
-    <form id="addReceipt">
-        <p>
-        <div>Search Receipt</div>
-        <input id="receiptID" type="number" name="receiptID" placeholder="Receipt ID" required>
         <input id="submit" type="submit" value="submit">
         </p>
     </form>

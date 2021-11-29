@@ -32,11 +32,12 @@
             {{!-- For just the first row, we print each key of the row object as a header cell so we
             know what each column means when the page renders --}}
             <tr>
-                {{#each data.[0]}}
-                <th>
-                    {{@key}}
-                </th>
-                {{/each}}
+                <th>memberID</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>email</th>
+                <th>latestFilmViewed</th>
+                <th>recentConcessionItem</th>
             </tr>
         </thead>
 
@@ -44,7 +45,7 @@
         <tbody>
 
             {{!-- For each row, print the --}}
-            {{#each data}}
+            {{#each this.members}}
             <tr id="row">
                 <td>{{this.memberID}}</td>
                 <td>{{this.firstName}}</td>
@@ -52,17 +53,6 @@
                 <td>{{this.email}}</td>
                 <td>{{this.latestFilmViewed}}</td>
                 <td>{{this.recentConcessionItem}}</td>
-                <td><button
-                        onclick="editMembers({{this.memberID}},{{this.firstName}},{{this.lastName}}, {{this.email}}, {{this.latestFilmViewed}}, {{this.recentConcessionItem}})">Edit</button>
-                </td>
-                <td>
-                    <form action="/delete_row">
-                        <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="members">
-                        <input type="hidden" name="page" value="/members">
-                        <input type="hidden" name="id" value="{{this.memberID}}">
-                    </form>
-                </td>
             </tr>
             {{/each}}
         </tbody>
@@ -70,10 +60,9 @@
 
     <h1>Members manage/lookup</h1>
 
-    <form id="addMember">
+    <form id="addMember" action="/members" method="post">
         <p>
         <div>Add Member</div>
-
         <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
         <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
         <input id="email" type="email" name="email" placeholder="email" required>
@@ -81,25 +70,33 @@
         </p>
     </form>
 
-    <form id="deleteMember">
+    <form id="deleteMember" action="/members_delete" method="post">
         <p>
         <div>Delete Member</div>
-        <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
-        <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
-        <input id="email" type="email" name="email" placeholder="email" required>
+        <input id="filmID" type="number" name="memberID" placeholder="Member ID" required>
         <input id="submit" type="submit" value="submit">
         </p>
     </form>
 
-    <form id="updateMember">
+    <form id="updateMember" action="/members_update" method="post">
         <p>
         <div>Update Member</div>
-        <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
+        <input id="memberID" type="number" name="memberID" placeholder="Member ID" required>
         <input id="firstName" type="text" name="firstName" placeholder="First Name">
         <input id="lastName" type="text" name="lastName" placeholder="Last Name">
         <input id="email" type="email" name="email" placeholder="email">
         <input id="submit" type="submit" value="submit">
         </p>
+    </form>
+
+     <form id="filmUpdate" action="/films_update" method="post">
+        <p>
+        <div>Update Film</div>
+        <input id="filmID" type="number" name="filmID" placeholder="Film ID" required>
+        <input id="newTitle" type="text" name="newTitle" placeholder="New Title" required>
+        <input id="submit" type="submit" value="submit">
+        </p>
+
     </form>
 
     <form id='searchMembers' action='' method=''>
