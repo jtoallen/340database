@@ -187,12 +187,144 @@ app.post('/films_delete', function(req, res){
 	});
 });
 
-app.get('/members_concessions', function (req, res) {
-    res.render('members_concessions')
+app.get('/members_concessions', function(req, res){
+    var selectQuery = "SELECT * FROM MembersConcessions";
+	var context = {};
+	var mysql = req.app.get('mysql');
+	mysql.pool.query(selectQuery, function(error, results, fields) {
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		context.members_concessions = results;
+		res.render('members_concessions', context);
+	});
 });
 
-app.get('/members_films', function (req, res) {
-    res.render('members_films')
+app.post('/members_concessions', function(req, res){
+	var mysql = req.app.get('mysql');
+    var insert = "INSERT INTO MembersConcessions(receiptID, itemID, memberID, quantityPurchased) VALUES (NULL, ?, ?, ?)";
+    var insertTwo = "UPDATE Members SET recentConcessionItem = (?) WHERE memberID = (?);"
+    var insertThree = "INSERT INTO `SalesReceipts`(`date`, `totalPaid`) VALUES (CURRENT_DATE(), (SELECT SUM(memberPrice * quantityPurchased) FROM ConcessionItems ci JOIN MembersConcessions mc ON ci.itemID = mc.itemID))";
+    var insertFour = "UPDATE MembersConcessions SET receiptID = (SELECT receiptID FROM SalesReceipts ORDER BY receiptID DESC LIMIT 1) WHERE transactionID = (SELECT transactionID FROM MembersConcessions ORDER BY transactionID DESC LIMIT 1)";
+    var insertItems = [req.body.itemID, req.body.memberID, req.body.quantityPurchased];
+    var latestConcession = [req.body.itemID, req.body.memberID];
+    var newReceipt = [req.body.memberID]
+	mysql.pool.query(insert, insertItems, function(error, results, fields){
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		} else {
+            mysql.pool.query(insertTwo, latestConcession, function(error, results, fields){
+                if(error){
+                    res.write(JSON.stringify(error));
+                    res.end();
+                } else {
+                    mysql.pool.query(insertThree, newReceipt, function(error, results, fields){
+                        if(error){
+                            res.write(JSON.stringify(error));
+                            res.end();
+                        } else {
+                            mysql.pool.query(insertFour, function(error, results, fields){
+                                if(error){
+                                    res.write(JSON.stringify(error));
+                                    res.end();
+                                } else {
+                                    res.redirect('/members_concessions');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.post('/members_concessions_delete', function(req, res){
+    var delQuery = "DELETE FROM `MembersConcessions` WHERE `transactionID` = ?";
+	var context = {};
+	var mysql = req.app.get('mysql');
+    deletes = [req.body.transactionID]
+	mysql.pool.query(delQuery, deletes, function(error, results, fields) {
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		else {
+			res.redirect('/members_concessions');
+		}
+	});
+});
+
+app.get('/members_films', function(req, res){
+    var selectQuery = "SELECT * FROM MembersFilms";
+	var context = {};
+	var mysql = req.app.get('mysql');
+	mysql.pool.query(selectQuery, function(error, results, fields) {
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		context.members_films = results;
+		res.render('members_films', context);
+	});
+});
+
+app.post('/members_films', function(req, res){
+	var mysql = req.app.get('mysql');
+    var insert = "INSERT INTO MembersFilms(receiptID, filmID, memberID, quantityPurchased) VALUES (NULL, ?, ?, ?)";
+    var insertTwo = "UPDATE Members SET latestFilmViewed= (?) WHERE memberID = (?);"
+    var insertThree = "INSERT INTO `SalesReceipts`(`date`, `totalPaid`) VALUES (CURRENT_DATE(), (9.99 * (SELECT quantityPurchased FROM MembersFilms WHERE memberID = (?) ORDER BY orderID DESC LIMIT 1)))";
+    var insertFour = "UPDATE MembersFilms SET receiptID = (SELECT receiptID FROM SalesReceipts ORDER BY receiptID DESC LIMIT 1) WHERE orderID = (SELECT orderID FROM MembersFilms ORDER BY orderID DESC LIMIT 1)"
+    var insertItems = [req.body.filmID, req.body.memberID, req.body.quantityPurchased];
+    var latestFilm = [req.body.filmID, req.body.memberID];
+    var newReceipt = [req.body.memberID]
+	mysql.pool.query(insert, insertItems, function(error, results, fields){
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		} else {
+            mysql.pool.query(insertTwo, latestFilm, function(error, results, fields){
+                if(error){
+                    res.write(JSON.stringify(error));
+                    res.end();
+                } else {
+                    mysql.pool.query(insertThree, newReceipt, function(error, results, fields){
+                        if(error){
+                            res.write(JSON.stringify(error));
+                            res.end();
+                        } else {
+                            mysql.pool.query(insertFour, function(error, results, fields){
+                                if(error){
+                                    res.write(JSON.stringify(error));
+                                    res.end();
+                                } else {
+                                    res.redirect('/members_films');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.post('/members_films_delete', function(req, res){
+    var delQuery = "DELETE FROM `MembersFilms` WHERE `orderID` = ?";
+	var context = {};
+	var mysql = req.app.get('mysql');
+    deletes = [req.body.orderID]
+	mysql.pool.query(delQuery, deletes, function(error, results, fields) {
+		if(error){
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		else {
+			res.redirect('/members_films');
+		}
+	});
 });
 
 app.get('/members', function(req, res){
@@ -270,6 +402,7 @@ app.post('/members_delete', function(req, res){
 });
 
 app.get('/sales_receipts', function(req, res){
+	console.log("routing to main get"); // for debugging
 	selectQuery = "SELECT * FROM SalesReceipts";
 	var context = {};
 	var mysql = req.app.get('mysql');
@@ -284,6 +417,7 @@ app.get('/sales_receipts', function(req, res){
 });
 
 app.post('/sales_receipts', function(req, res){
+	console.log("routing to sales receipt insert"); // for debugging
 	var mysql = req.app.get('mysql');
     var insertQuery = "INSERT INTO `SalesReceipts`(`date`, `totalPaid`) VALUES (?, ?)";
     var inserts = [req.body.date, req.body.totalPaid];
@@ -298,10 +432,11 @@ app.post('/sales_receipts', function(req, res){
 });
 
 app.post('/sales_receipts_update', function(req, res){
+	console.log("routing to sales receipt update"); // for debugging
 	var mysql = req.app.get('mysql');
     var updateQuery = "UPDATE `SalesReceipts` SET `date` = ?, `totalPaid` = ? WHERE `receiptID` = ?";
-    var updates = [req.body.date, req.body.totalPaid, req.body.receiptId];
-	mysql.pool.query(updateQuery, updates, function(error, results, fields){
+    var updates = [req.body.date, req.body.totalPaid, req.body.receiptID];
+	  mysql.pool.query(updateQuery, updates, function(error, results, fields){
 		if(error){
 			res.write(JSON.stringify(error));
 			res.end();
@@ -313,10 +448,10 @@ app.post('/sales_receipts_update', function(req, res){
 
 app.post('/sales_receipts_delete', function(req, res){
 	var mysql = req.app.get('mysql');
-    var deleteQuery = "DELETE FROM `SalesReceipts` WHERE `ReceiptID` = ?";
+  var deleteQuery = "DELETE FROM `SalesReceipts` WHERE `ReceiptID` = ?";
 	var deleteQueryTwo = "UPDATE MembersConcessions SET `ReceiptID` = NULL WHERE `ReceiptID` = ?";
 	var deleteQueryThree = "UPDATE MembersFilms SET `ReceiptID` = NULL WHERE `ReceiptID` = ?";
-    var deletes = [req.body.receiptId];
+  var deletes = [req.body.receiptID];
 	mysql.pool.query(deleteQueryThree, deletes, function(error, results, fields){
 		if(error){
 			res.write(JSON.stringify(error));

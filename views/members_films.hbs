@@ -33,11 +33,11 @@
             {{!-- For just the first row, we print each key of the row object as a header cell so we
             know what each column means when the page renders --}}
             <tr>
-                {{#each data.[0]}}
-                <th>
-                    {{@key}}
-                </th>
-                {{/each}}
+                <th>orderID</th>
+                <th>receiptID</th>
+                <th>filmID</th>
+                <th>memberID</th>
+                <th>quantityPurchased</th>
             </tr>
         </thead>
 
@@ -45,24 +45,13 @@
         <tbody>
 
             {{!-- For each row, print the --}}
-            {{#each data}}
+            {{#each this.members_films}}
             <tr id="row">
                 <td>{{this.orderID}}</td>
                 <td>{{this.receiptID}}</td>
                 <td>{{this.filmID}}</td>
                 <td>{{this.memberID}}</td>
-                <td>{{this.quantityPurchased}}</td>
-                <td><button
-                        onclick="editMembersFilms({{this.orderID}},{{this.receiptID}},{{this.filmID}}, {{this.memberID}}, {{this.quantityPurchased}})">Edit</button>
-                </td>
-                <td>
-                    <form action="/delete_row">
-                        <button type="submit">Delete</button>
-                        <input type="hidden" name="table" value="members_films">
-                        <input type="hidden" name="page" value="/members_films">
-                        <input type="hidden" name="id" value="{{this.orderID}}">
-                    </form>
-                </td>
+                <td>{{this.quantityPurchased}}</td> 
             </tr>
             {{/each}}
         </tbody>
@@ -70,28 +59,24 @@
 
     <h1>Members Films</h1>
 
-    <form id="addTicketTransactions">
+    <form id="addTicketTransactions" action="/members_films" method="post">
         <p>
-        <div>Add New Member Ticket Transaction</div>
-        <input id="orderID" type="text" name="orderID" placeholder="Order ID" required>
-        <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
+        <div>Add New Member Film transaction</div>
         <input id="filmID" type="text" name="filmID" placeholder="Film ID" required>
         <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
         <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased" required>
         <input id="submit" type="submit" value="submit">
         </p>
     </form>
-    <form id="deleteTicketTransactions"></form>
+    
+    <form id="deleteTicketTransactions" action="/members_films_delete" method="post">
     <p>
-    <div>Delete Member Ticket Transaction</div>
+    <div>Delete Member Film transaction</div>
     <input id="orderID" type="text" name="orderID" placeholder="Order ID" required>
-    <input id="receiptID" type="text" name="receiptID" placeholder="Receipt ID">
-    <input id="filmID" type="text" name="filmID" placeholder="Film ID" required>
-    <input id="memberID" type="text" name="memberID" placeholder="Member ID" required>
-    <input id="quantityPurchased" type="text" name="quantityPurchased" placeholder="Quantity Purchased">
     <input id="submit" type="submit" value="submit">
     </p>
     </form>
+
 </body>
 
 </html>

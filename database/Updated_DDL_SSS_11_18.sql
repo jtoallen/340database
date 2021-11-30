@@ -121,8 +121,7 @@ UPDATE Members SET recentConcessionItem = 6 WHERE memberID = @bobID;
 SET @bobNewTransactionID = (SELECT transactionID FROM MembersConcessions ORDER BY transactionID DESC LIMIT 1);
 
 -- we have to add up the concession numbers for the receipt
-SET @bobConcessionsPaid = (SELECT SUM(memberPrice * quantityPurchased) 
-FROM ConcessionItems ci JOIN MembersConcessions mc ON ci.itemID = mc.itemID);
+SET @bobConcessionsPaid = (SELECT SUM(memberPrice * quantityPurchased) FROM ConcessionItems ci JOIN MembersConcessions mc ON ci.itemID = mc.itemID);
 
 -- we create a receipt for bob's concession purchase
 INSERT INTO `SalesReceipts`(`date`, `totalPaid`) 
