@@ -176,9 +176,10 @@ app.post('/films_delete', function (req, res) {
 					res.write(JSON.stringify(error));
 					res.end();
 				} else {
-					mysql.pool.query(delQuery, del, function (error, results, fields) {
+					mysql.pool.query(!delQuery, del, function (error, results, fields) {
 						if (error) {
-							res.write(JSON.stringify(error));
+							res.send("Film ID does not exist");
+							// res.write(JSON.stringify(error));
 							res.end();
 						}
 						else {
