@@ -146,11 +146,13 @@ app.post('/films', function (req, res) {
 });
 
 app.post('/films_update', function (req, res) {
+	var allFilms = "SELECT * FROM Films";
 	updateQuery = "UPDATE `Films` SET `title` = (?) WHERE `filmID` = (?)";
 	var update = [req.body.newTitle, req.body.filmID];
-	mysql.pool.query(updateQuery, update, function (error, results, fields) {
+	mysql.pool.query(!updateQuery, update, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			res.send("Invalid Film ID");
+			// res.write(JSON.stringify(error));
 			res.end();
 		} else {
 			res.redirect('/films');
@@ -159,6 +161,7 @@ app.post('/films_update', function (req, res) {
 });
 
 app.post('/films_delete', function (req, res) {
+	var allFilms = "SELECT * FROM Films";
 	delQuery = "DELETE FROM `Films` WHERE `filmID` = (?)";
 	delQueryTwo = "DELETE FROM MembersFilms WHERE `filmID` = (?)";
 	delQueryThree = "UPDATE `Members` SET `latestFilmViewed` = NULL WHERE `latestFilmViewed` = (?)";
@@ -177,7 +180,8 @@ app.post('/films_delete', function (req, res) {
 						if (error) {
 							res.write(JSON.stringify(error));
 							res.end();
-						} else {
+						}
+						else {
 							res.redirect('/films');
 						}
 					});
@@ -213,7 +217,7 @@ app.post('/members_concessions', function (req, res) {
 	mysql.pool.query(insert, insertItems, function (error, results, fields) {
 		if (error) {
 			console.log("you have reached error in members concessions insert")
-			res.redirect("/404");
+			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
 		} else {
@@ -265,7 +269,7 @@ app.get('/members_films', function (req, res) {
 	var mysql = req.app.get('mysql');
 	mysql.pool.query(selectQuery, function (error, results, fields) {
 		if (error) {
-			res.redirect("/404");
+			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
 		}
@@ -276,6 +280,7 @@ app.get('/members_films', function (req, res) {
 
 app.post('/members_films', function (req, res) {
 	var mysql = req.app.get('mysql');
+	// var allFilms = "SELECT * FROM Films";
 	var insert = "INSERT INTO MembersFilms(receiptID, filmID, memberID, quantityPurchased) VALUES (NULL, ?, ?, ?)";
 	var insertTwo = "UPDATE Members SET latestFilmViewed= (?) WHERE memberID = (?);"
 	var insertThree = "INSERT INTO `SalesReceipts`(`date`, `totalPaid`) VALUES (CURRENT_DATE(), (9.99 * (SELECT quantityPurchased FROM MembersFilms WHERE memberID = (?) ORDER BY orderID DESC LIMIT 1)))";
@@ -287,7 +292,7 @@ app.post('/members_films', function (req, res) {
 		if (error) {
 			// res.write(JSON.stringify(error));
 			console.log("you have reached error in members_films insert")
-			res.redirect("/404");
+			res.redirect("/400");
 			res.end();
 		} else {
 			mysql.pool.query(insertTwo, latestFilm, function (error, results, fields) {
@@ -324,7 +329,7 @@ app.post('/members_films_delete', function (req, res) {
 	mysql.pool.query(delQuery, deletes, function (error, results, fields) {
 		if (error) {
 			console.log("you have reached error in members_films delete")
-			res.redirect("/404");
+			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
 		}
@@ -341,7 +346,7 @@ app.get('/members', function (req, res) {
 	mysql.pool.query(selectQuery, function (error, results, fields) {
 		if (error) {
 			console.log("you have reached error in select all members")
-			res.redirect("/404");
+			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
 		}
@@ -372,7 +377,7 @@ app.post('/members_update', function (req, res) {
 	mysql.pool.query(updateQuery, update, function (error, results, fields) {
 		if (error) {
 			// console.log("you have reached error in members update")
-			// res.redirect("/404");
+			// res.redirect("/400");
 			res.write(JSON.stringify(error));
 			res.end();
 		} else {
@@ -391,7 +396,7 @@ app.post('/members_delete', function (req, res) {
 	mysql.pool.query(delQueryThree, update, function (error, results, fields) {
 		if (error) {
 			console.log("you have reached error in members delete")
-			res.redirect("/404");
+			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
 		} else {
@@ -490,8 +495,8 @@ app.post('/sales_receipts_delete', function (req, res) {
 });
 
 app.use(function (req, res) {
-	res.status(404);
-	res.render("404");
+	res.status(400);
+	res.render("400");
 });
 
 app.use(function (err, req, res, next) {
@@ -503,5 +508,5 @@ app.use(function (err, req, res, next) {
 	LISTENER
 */
 app.listen(PORT, function () {            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-	console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate. Wactching for changes with Nodemon')
+	console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
