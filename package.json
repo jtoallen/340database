@@ -13,6 +13,7 @@
     "express-handlebars": "^6.0.1",
     "forever": "^4.0.1",
     "mysql": "^2.18.1",
+    "util": "^0.12.4",
     "util.promisify": "^1.1.1"
   }
 }
