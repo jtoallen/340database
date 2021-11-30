@@ -212,7 +212,9 @@ app.post('/members_concessions', function (req, res) {
 	var newReceipt = [req.body.memberID]
 	mysql.pool.query(insert, insertItems, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			console.log("you have reached error in members concessions insert")
+			res.redirect("/404");
+			// res.write(JSON.stringify(error));
 			res.end();
 		} else {
 			mysql.pool.query(insertTwo, latestConcession, function (error, results, fields) {
@@ -263,7 +265,8 @@ app.get('/members_films', function (req, res) {
 	var mysql = req.app.get('mysql');
 	mysql.pool.query(selectQuery, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			res.redirect("/404");
+			// res.write(JSON.stringify(error));
 			res.end();
 		}
 		context.members_films = results;
@@ -320,7 +323,9 @@ app.post('/members_films_delete', function (req, res) {
 	deletes = [req.body.orderID]
 	mysql.pool.query(delQuery, deletes, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			console.log("you have reached error in members_films delete")
+			res.redirect("/404");
+			// res.write(JSON.stringify(error));
 			res.end();
 		}
 		else {
@@ -335,7 +340,9 @@ app.get('/members', function (req, res) {
 	var mysql = req.app.get('mysql');
 	mysql.pool.query(selectQuery, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			console.log("you have reached error in select all members")
+			res.redirect("/404");
+			// res.write(JSON.stringify(error));
 			res.end();
 		}
 		context.members = results;
@@ -364,6 +371,8 @@ app.post('/members_update', function (req, res) {
 	var update = [req.body.firstName, req.body.lastName, req.body.email, req.body.memberID];
 	mysql.pool.query(updateQuery, update, function (error, results, fields) {
 		if (error) {
+			// console.log("you have reached error in members update")
+			// res.redirect("/404");
 			res.write(JSON.stringify(error));
 			res.end();
 		} else {
@@ -373,7 +382,7 @@ app.post('/members_update', function (req, res) {
 });
 
 app.post('/members_delete', function (req, res) {
-	console.log("routed to members_delete"); // for debugging
+	// console.log("routed to members_delete"); // for debugging
 	delQuery = "DELETE FROM `Members` WHERE memberID = (?)";
 	delQueryTwo = "DELETE FROM `MembersConcessions` WHERE memberID = (?)";
 	delQueryThree = "DELETE FROM `MembersFilms` WHERE memberID = (?)";
@@ -381,7 +390,9 @@ app.post('/members_delete', function (req, res) {
 	var update = [req.body.memberID];
 	mysql.pool.query(delQueryThree, update, function (error, results, fields) {
 		if (error) {
-			res.write(JSON.stringify(error));
+			console.log("you have reached error in members delete")
+			res.redirect("/404");
+			// res.write(JSON.stringify(error));
 			res.end();
 		} else {
 			mysql.pool.query(delQueryTwo, update, function (error, results, fields) {
