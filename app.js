@@ -23,7 +23,7 @@ app.set('mysql', mysql);
 
 //Express-Handlebars
 const { engine } = require('express-handlebars');
-const { query } = require('express');
+const { query, Router } = require('express');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
 
@@ -145,16 +145,17 @@ app.post('/films', function (req, res) {
 	});
 });
 
-app.post('/films_update', function (req, res) {
+app.post('/films_update', function (req, res, next) {
 	var allFilms = "SELECT * FROM Films";
 	updateQuery = "UPDATE `Films` SET `title` = (?) WHERE `filmID` = (?)";
 	var update = [req.body.newTitle, req.body.filmID];
-	mysql.pool.query(!updateQuery, update, function (error, results, fields) {
+	mysql.pool.query(updateQuery, update, function (error, results, fields) {
 		if (error) {
-			res.send("Invalid Film ID");
-			// res.write(JSON.stringify(error));
-			res.end();
-		} else {
+			res.write(JSON.stringify(error));
+			res.end()
+			// res.send("Invalid Film ID")
+		}
+		else {
 			res.redirect('/films');
 		}
 	});
@@ -176,7 +177,7 @@ app.post('/films_delete', function (req, res) {
 					res.write(JSON.stringify(error));
 					res.end();
 				} else {
-					mysql.pool.query(!delQuery, del, function (error, results, fields) {
+					mysql.pool.query(delQuery, del, function (error, results, fields) {
 						if (error) {
 							res.send("Film ID does not exist");
 							// res.write(JSON.stringify(error));
