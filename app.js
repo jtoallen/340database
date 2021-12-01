@@ -85,6 +85,28 @@ app.post('/concession_items_update', function (req, res) {
 	});
 });
 
+
+app.get('/concession_items_search', function (req, res) {
+	console.log("concession items search")
+	console.log(req.query.itemID)
+	searchQuery = "SELECT itemName FROM `ConcessionItems` WHERE `itemName` = (?) ";
+	// searchQuery = "SELECT * FROM `ConcessionItems` WHERE `itemName` = (?) ";
+	// searchQuery = "SELECT * FROM `ConcessionItems`";
+	var context = {};
+	var mysql = req.app.get('mysql');
+	// var search = [req.body.itemName];
+	mysql.pool.query(searchQuery, function (error, results, fields) {
+		if (error) {
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		context.concession_items = results;
+		// console.log(context.concession_items_search)
+		// console.log({ context: results })
+		res.render('/concession_items', context);
+	});
+});
+
 app.post('/concession_items_delete', function (req, res) {
 	delQuery = "DELETE FROM `ConcessionItems` WHERE `itemID` = (?)";
 	delQueryTwo = "DELETE FROM MembersConcessions WHERE `itemID` = (?)";
