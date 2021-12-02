@@ -18,6 +18,8 @@ app.use(express.json());
 // CITED: https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 
 // Database
+// let db = require('./database/db-connector.js');
+
 var mysql = require('./database/db-connector.js');
 app.set('mysql', mysql);
 
@@ -36,7 +38,6 @@ app.use(express.static('public'));
 /*
 	ROUTES
 */
-
 
 app.get('/', function (req, res) {
 	console.log('Rendering index page index page.');
@@ -88,23 +89,40 @@ app.post('/concession_items_update', function (req, res) {
 
 app.get('/concession_items_search', function (req, res) {
 	console.log("concession items search")
-	console.log(req.query.itemName)
-	searchQuery = "SELECT itemName FROM `ConcessionItems` WHERE `itemName` = " + req.query.itemID + " ";
+	console.log(req.query) //undefined
+	console.log(req.query.itemName) //returns itemName from search query hbs
+	let searchQuery = `SELECT * FROM ConcessionItems WHERE itemName = " + req.query.itemName + "`;
+	// let searchQuery = `SELECT * FROM ConcessionItems WHERE ${req.query.itemName} LIKE "${req.query.itemName}%"`;
 	// searchQuery = "SELECT * FROM `ConcessionItems` WHERE `itemName` = (?) ";
 	// searchQuery = "SELECT * FROM `ConcessionItems`";
-	var context = {};
-	var mysql = req.app.get('mysql');
+	// let context = {};
+	// let mysql = req.app.get('mysql');
 	// var search = [req.body.itemName];
-	mysql.pool.query(searchQuery, function (error, results, fields) {
+	mysql.pool.query(searchQuery, function (error, rows, fields) {
+		let items = rows;
 		if (error) {
+			// searchQuery = "SELECT * FROM `ConcessionItems`";
+			// res.render("concession_items", { data: rows })
 			res.write(JSON.stringify(error));
 			res.end();
+			// res.send("you have an error")
 		}
-		context.concession_items = results;
-		// console.log(context.concession_items_search)
-		// console.log({ context: results })
-		console.log("you made a successful search query for concesion items")
-		res.render('concession_items', req.query);
+		else {
+			// context.concession_items = rows;
+			// context.concession_items = rows;
+			// console.log(context.concession_items_search)
+			// console.log({ context: results })
+			// console.log({context: results})
+			console.log("you made a successful search query for concesion items");
+			// console.log(rows); //[]
+			// console.log(data);
+			console.log({ data: rows });
+			// res.render('concession_items', { data: rows })
+			// res.render('concession_items', { data: rows })
+			res.render('concession_items', { data: items })
+			// res.send("you made it here")
+			// res.render('concession_items', { results });
+		};
 	});
 });
 
@@ -149,6 +167,7 @@ app.get('/films', function (req, res) {
 			res.end();
 		}
 		context.films = results;
+		console.log(context.films);
 		res.render('films', context);
 	});
 });

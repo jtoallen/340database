@@ -21,6 +21,9 @@
         This page is for adding and deleting concession items in the Silver Screen Shows Database
     </p>
 
+    {{!-- This form was adapted from the example provided at
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app retrieved 12/02/2021 --}}
+
     {{!-- Create a table --}}
     <table id="ConcessionItems">
 
@@ -81,14 +84,37 @@
         <input id="submit" type="submit" value="submit">
         </p>
     </form>
+    {{!--
 
-    <form id="concessionSearch" action="/concession_items_search" method="get">
+    <tr id="row">
+        {{#each this.concession_items}}
+
+        <td>{{this.itemID}}</td>
+        <td>{{this.itemName}}</td>
+        <td>{{this.standardPrice}}</td>
+        <td>{{this.memberPrice}}</td>
+    </tr>
+    {{/each}} --}}
+
+    {{!-- <td> --}}
+        <form id="concessionSearch" action="/concession_items_search" method="get">
+            <p>
+            <div>Search Concession Item By Name</div>
+            <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
+            <input id="submit" type="submit" value="submit">
+            </p>
+        </form>
+        {{!--
+    </td>
+    </tr> --}}
+    {{!-- {{/each}} --}}
+    {{!-- <form id="concessionSearch" action="/concession_items_search" method="get">
         <p>
         <div>Search Concession Item By Name</div>
         <input id="itemName" type="text" name="itemName" placeholder="Item Name" required>
-        <input id="itemName" type="submit" value="itemName">
+        <input id="itemName" type="submit" value="submit">
         </p>
-    </form>
+    </form> --}}
 
 </body>
 
