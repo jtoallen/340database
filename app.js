@@ -88,7 +88,7 @@ app.post('/concession_items_update', function (req, res) {
 
 app.get('/concession_items_search', function (req, res) {
 	console.log("concession items search")
-	console.log(req.query.itemID)
+	console.log(req.query.itemName)
 	searchQuery = "SELECT itemName FROM `ConcessionItems` WHERE `itemName` = " + req.query.itemID + " ";
 	// searchQuery = "SELECT * FROM `ConcessionItems` WHERE `itemName` = (?) ";
 	// searchQuery = "SELECT * FROM `ConcessionItems`";
