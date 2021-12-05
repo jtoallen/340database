@@ -22,6 +22,16 @@
     <p>
         This page is for adding, deleting, and searching films in the Silver Screen Shows Database
     </p>
+    <p>
+    <form id="filmSearch" action="/films_search" method="get">
+        <div>Search Film</div>
+        <input id="filmTitle" type="text" name="filmTitle" placeholder="Film Title" required>
+        <input id="submit" type="submit" value="submit">
+    </form>
+    <form id="filmSearchReset" action="/films" method="get">
+        <input id="submit" type="submit" value="reset page">
+    </form>
+    </p>
 
     {{!-- Create a table --}}
     <table id="films">

@@ -172,6 +172,21 @@ app.get('/films', function (req, res) {
 	});
 });
 
+app.get('/films_search', function (req, res) {
+	console.log("routing to get /films");
+	selectQuery = "SELECT * FROM Films WHERE `title` = ?";
+	var search = [req.query.filmTitle]
+	var context = {};
+	mysql.pool.query(selectQuery, search, function (error, results, fields) {
+		if (error) {
+			res.write(JSON.stringify(error));
+			res.end();
+		}
+		context.films = results;
+		res.render('films', context);
+	});
+});
+
 app.post('/films', function (req, res) {
 	console.log(req.body); //for debugging
 	insertQuery = "INSERT INTO `Films`(`title`) VALUES (?)";
@@ -390,6 +405,22 @@ app.get('/members', function (req, res) {
 	mysql.pool.query(selectQuery, function (error, results, fields) {
 		if (error) {
 			console.log("you have reached error in select all members")
+			res.redirect("/400");
+			// res.write(JSON.stringify(error));
+			res.end();
+		}
+		context.members = results;
+		res.render('members', context);
+	});
+});
+
+app.get('/members_search', function (req, res) {
+	selectQuery = "SELECT * FROM Members WHERE firstName = ? OR lastName = ?";
+	var context = {};
+	var mysql = req.app.get('mysql');
+	var search = [req.query.firstName, req.query.lastName]
+	mysql.pool.query(selectQuery, search, function (error, results, fields) {
+		if (error) {
 			res.redirect("/400");
 			// res.write(JSON.stringify(error));
 			res.end();
